@@ -1,10 +1,26 @@
-from tkinter import Tk, PhotoImage, messagebox
-import customtkinter as ctk
-import requests
-from PIL import ImageTk, Image
-from urllib.request import urlopen
-import json
-import pickle
+import pip
+
+try:
+    import customtkinter
+    import requests
+    import tkinter
+    import PIL
+    print("modulo encontrado")
+except ModuleNotFoundError:
+    print("modulo não encontrado.. Tentativa de instalação a caminho.")
+    pip.main(["install", "customtkinter"])
+    pip.main(["install", "requests" ])
+    pip.main(["install", "tkinter"])
+    pip.main(["install", "pillow"])
+else:
+    from tkinter import Tk, PhotoImage, messagebox
+    import customtkinter as ctk
+    import requests
+    from PIL import ImageTk, Image
+    from urllib.request import urlopen
+    import pickle
+
+
 
 if __name__ == "__main__":
     main_w =  ctk.CTk()
@@ -14,7 +30,7 @@ if __name__ == "__main__":
             #self.pokemon_bd()
             self.pokemon_db_open()
             self.win_config()
-            self.main()
+            self.main_screen()
             main_w.mainloop()
 
         def win_config(self):
@@ -73,15 +89,11 @@ if __name__ == "__main__":
             else:
                 print(self.pk_db)
                 self.pk_db = dict(self.pk_db)
-
-                
-            
-
           
 
         #/-----/------Telas------/-----/   
 
-        def main(self):
+        def main_screen(self):
             def start():
                 main_frame.pack_forget()
                 self.pokedex_frame()
@@ -133,13 +145,8 @@ if __name__ == "__main__":
             credit_info = ctk.CTkLabel(master=main_frame, text="criado por: Gustavo Moreira\ngithub: https://github.com/Gustav0Moreira\nlinkedin: in/gustavo-moreira-brito-da-silva-34203b229/\nEste é um projeto sem fins lucrativos e de finalidade academica", font=("Roboto", 15))
             credit_info.place(x=posi_desc_og[0], y=posi_desc_og[1])
 
-            
-
-
 
         def pokedex_frame(self):
-
-            
 
             def max_win():
                 main_w.geometry(f"{self.info_size_max[0]}x{self.info_size_max[1]}")
@@ -182,8 +189,6 @@ if __name__ == "__main__":
                 pk_img_label.place(x=posi_pk_img_ct[0], y=posi_pk_img_ct[1])
                 pk_crate_label.configure(font=(fonte2_ct[0], fonte2_ct[1], fonte2_ct[2]))
                 
-            
-            
 
             frame1_layout_og = (380, 720)
             frame1_layout_cu = (280, 520)
@@ -200,12 +205,6 @@ if __name__ == "__main__":
             
             posi_id_label_og = (80, 25)
             posi_id_label_ct = (70, 15)  
-
-            posi_title_og = (60, 450)
-            posi_title_ct = (35, 350)
-
-            posi_crate_og = (39, 550)
-            posi_crate_ct = (35, 400)
 
             posi_pk_img_og = (85, 150)
             posi_pk_img_ct = (35, 100)
@@ -255,24 +254,6 @@ if __name__ == "__main__":
             pk_crate_label = ctk.CTkLabel(master=frame_h_crate, text=crate_default, height=70, font=(fonte2_og[0], fonte2_og[1], fonte2_og[2]), fg_color="firebrick2", corner_radius=20)
             pk_crate_label.place(relx=0.5, rely=0.5, anchor="center")
 
-            
-           
-
-
-            # pk_label = ctk.CTkFrame(master=pk_main, fg_color="firebrick2", width=200, height=200)
-            # pk_label.place(relx=0.5, rely=0.5, anchor="center")
-            
-            # test_url = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/126.png"
-
-            # img_test = Image.open(urlopen(test_url))
-
-            # img_test = img_test.resize((200,200))
-            
-            # pk_img = ImageTk.PhotoImage(img_test)
-
-            # pk_img_label = ctk.CTkLabel(master=pk_label, image=pk_img, text="")
-            # pk_img_label.place(x=0, y=0)
-
 
             #Sub_Frame----------------------------------------------------------------------------------------------
 
@@ -282,9 +263,6 @@ if __name__ == "__main__":
 
             buttom_dict = {}
             pk_dict = self.pk_db
-
-            # x = [x[1]["catch_rate"] for x in pk_dict.items()]
-            # print(round(sum(x)/len(x)))
 
             for x in pk_dict:
                 def pk_id(i = x):
@@ -314,7 +292,6 @@ if __name__ == "__main__":
                     pk_crate_label.update()
 
 
-                
                 id = x
                 name = pk_dict[x]["name"]
                 buttom_dict[x] = ctk.CTkButton(master=layout_2, command=pk_id, text=f"{name} #{id}", font=("Roboto", 20, "bold"), fg_color="firebrick3", hover_color="firebrick4", width=pk_id_buttom_og[0], height=pk_id_buttom_og[1])
