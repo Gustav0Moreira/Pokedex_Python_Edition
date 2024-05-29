@@ -37,6 +37,7 @@ if __name__ == "__main__":
             main_w.title("Pokedex_App")
             main_w.geometry("800x800")
             main_w.resizable(False, False)
+            main_w.iconbitmap("icon_pk.ico")
             ctk.set_appearance_mode("dark")
             ctk.set_default_color_theme("dark-blue")
             self.info_size_max = (800, 800)
